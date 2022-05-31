@@ -1,0 +1,218 @@
+.hide {
+    display: none;
+}
+
+.payment {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    transition: all 0.3s;
+}
+
+.card {
+    height: auto;
+    width: 340px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 4px 20px;
+    animation: showModal linear 0.2s;
+    position: relative;
+    margin: 8px auto;
+    z-index: 999;
+}
+
+.payment-details {
+    margin-top: 20px;
+}
+
+.payment-details p {
+    font-size: 12px;
+    font-weight: 700;
+    color: #89898e;
+}
+
+.input-text {
+    position: relative;
+    margin-top: 30px;
+}
+
+.checkout-info {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: 0;
+    border: 1px solid #f6f6f7;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.input-text textarea {
+    border-radius: 5px;
+    border: none;
+    outline: 0;
+    border: 1px solid #f6f6f7;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.checkout-address {
+    height: 200px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: 0;
+    border: 1px solid #f6f6f7;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.input-text span {
+    position: absolute;
+    top: -16px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.summary {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-data p {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.text-data h4 {
+    margin-top: 12px;
+}
+
+.numerical-data p{
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.numerical-data h4 {
+    margin-top: 12px;
+}
+
+.pay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pay div,
+.pay input[type="submit"] {
+    text-align: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.pay input[type="submit"] {
+    background-color: red;
+}
+
+.back-btn-1 {
+    background-color: gray;
+    padding-top: 12px;
+}
+
+.pay div:hover,
+.pay input[type="submit"]:hover {
+    opacity: 0.5;
+}
+
+@keyframes showModal {
+    from {
+      top: -200px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+  
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+  
+.number-input {
+    border: 2px solid #ddd;
+    display: inline-flex;
+}
+  
+.number-input,
+.number-input * {
+    box-sizing: border-box;
+}
+  
+.number-input button {
+    outline:none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+}
+  
+.number-input button:before,
+.number-input button:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    width: 1rem;
+    height: 2px;
+    background-color: #212121;
+    transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+  
+.number-input input[type=number] {
+    font-family: sans-serif;
+    max-width: 5rem;
+    padding: .5rem;
+    border: solid #ddd;
+    border-width: 0 2px;
+    font-size: 18px;
+    height: 2rem;
+    font-weight: bold;
+    text-align: center;
+}

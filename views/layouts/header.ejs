@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="/assets/css/header.css">
+
+<header id="header">
+    <div class="header__left">
+        <a href="#" class="header__page-home">
+            <img src="/assets/img/logo.png" alt="header__logo" class="header__logo">
+        </a>
+    </div>
+    <div class="header__center">
+        <ul class="header__nav">
+            <li class="nav__item">
+                <a href="/" class="header__nav-item-link element--active">
+                    Trang chủ
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="/productList" class="header__nav-item-link">
+                    Sản phẩm
+                    <ul class="header__subnav">
+                    
+                    <li class="header__subnav-item">
+                        <a href="/shirtList" class="header__subnav-link">
+                            Áo
+                        </a>
+                    </li>
+                    <li class="header__subnav-item">
+                        <a href="/pantsList" class="header__subnav-link">
+                            Quần
+                        </a>
+                    </li>
+                    <li class="header__subnav-item">
+                        <a href="/setList" class="header__subnav-link">
+                            Bộ
+                        </a>
+                    </li>
+                </ul>    
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="/discountList" class="header__nav-item-link">
+                    Khuyến mãi    
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="#footer" class="header__nav-item-link">
+                    Liên hệ    
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="/size" class="header__nav-item-link">
+                    Bảng size
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="header__right">
+        <ul class="header__nav">
+            <% if (!user) { %>
+                <li class="nav__item">
+                    <a href="#" class="header__nav-item-link">
+                        <label class="header__cart">
+                            <i class="ti-user"></i>
+                        </label>
+                        <ul class="header__subnav">
+                            <li class="header__subnav-item">
+                                <a href="/login" class="header__subnav-link">
+                                    Đăng nhập
+                                </a>
+                            </li>
+                            <li class="header__subnav-item">
+                                <a href="/register" class="header__subnav-link">
+                                    Đăng ký
+                                </a>
+                            </li>
+                        </ul>
+                    </a>
+                </li>
+            <% } %>
+
+            <% if (user) { %>
+                <li class="nav__item">
+                    <a href="/" class="header__nav-item-link">
+                        <label class="header__cart">
+                            <i class="ti-user header__cart"></i>
+                        </label>
+                        <ul class="header__subnav">
+                            <li class="header__subnav-item">
+                                <a href="/user/order" class="header__subnav-link">
+                                    Theo dõi đơn hàng
+                                </a>
+                            </li>
+                            <li class="header__subnav-item">
+                                <a href="/user/profile" class="header__subnav-link">
+                                    Quản lý tài khoản
+                                </a>
+                            </li>
+                            <li class="header__subnav-item">
+                                <a href="/user/changePwd" class="header__subnav-link">
+                                    Đổi mật khẩu
+                                </a>
+                            </li>
+                            <li class="header__subnav-item">
+                                <a href="/user/logout" class="header__subnav-link">
+                                    Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </a>
+                </li>
+                <li class="nav__item" style="margin-top: 14px;">
+                    <a href="/user/cart" style="color: black; padding: 5px;">
+                        <i class="ti-shopping-cart header__cart"></i>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</header>
+
+<div class="dropdown-divider my-0"></div>
+<div class="clear" style="margin-bottom: 80px;"></div>

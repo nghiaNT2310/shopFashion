@@ -1,0 +1,82 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+  var count = 0;
+  const left = document.querySelector('#product-left');
+  const right = document.querySelector('#product-right');
+  const slider = document.querySelectorAll('.product-main-image');
+  const subImgSlider = document.querySelectorAll('.product-sub-image');
+
+  left.addEventListener('click', function() {
+     slider[count].classList.add('product-hide');
+     slider[count].classList.remove('left-animation');
+     slider[count].classList.remove('right-animation');
+     count = (count + 3)%4;
+     slider[count].classList.remove('product-hide');
+     slider[count].classList.add('left-animation');
+  })
+
+  right.addEventListener('click', function() {
+      slider[count].classList.add('product-hide');
+      slider[count].classList.remove('left-animation');
+      slider[count].classList.remove('right-animation');
+      count = (count + 1)%4;
+      slider[count].classList.remove('product-hide');
+      slider[count].classList.add('right-animation');
+  })
+
+  subImgSlider[0].addEventListener('click', function() {
+      if(count != 0) {
+          slider[count].classList.add('product-hide');
+          slider[count].classList.remove('left-animation');
+          slider[count].classList.remove('right-animation');
+          slider[0].classList.remove('product-hide');
+          slider[0].classList.add('left-animation');
+          count = 0;
+      }
+  })
+
+  subImgSlider[1].addEventListener('click', function() {
+      if(count != 1) {
+          slider[count].classList.add('product-hide');
+          slider[count].classList.remove('left-animation');
+          slider[count].classList.remove('right-animation');
+          slider[1].classList.remove('product-hide');
+          if(count > 1) {
+              slider[1].classList.add('left-animation');
+          }
+          else {
+              slider[1].classList.add('right-animation');
+          }
+          count = 1;
+      }
+  })
+
+  subImgSlider[2].addEventListener('click', function() {
+      if(count != 2) {
+          slider[count].classList.add('product-hide');
+          slider[count].classList.remove('left-animation');
+          slider[count].classList.remove('right-animation');
+          slider[2].classList.remove('product-hide');
+          if(count > 2) {
+              slider[2].classList.add('left-animation');
+          }
+          else {
+              slider[2].classList.add('right-animation');
+          }
+          count = 2;
+      }
+  })
+
+  subImgSlider[3].addEventListener('click', function() {
+      if(count != 3) {
+          slider[count].classList.add('product-hide');
+          slider[count].classList.remove('left-animation');
+          slider[count].classList.remove('right-animation');
+          slider[3].classList.remove('product-hide');
+          slider[3].classList.add('right-animation');
+          count = 3;
+      }
+  })
+</script>

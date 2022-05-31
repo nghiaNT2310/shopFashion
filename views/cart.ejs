@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/announce.css">
+    <link rel="stylesheet" href="/assets/css/cart.css">
+    <link rel="stylesheet" href="/assets/css/quantity.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+   
+    <% if(notice ) {%>
+        <div class="my-modal">
+            <div class="modal__inner sticky-top">
+                <div class="modal__header">
+                    <h5>Shop</h5>
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="modal__body">
+                    <h4><%= notice %></h4>
+                </div>
+                <div class="modal__footer">
+                    <button onclick="history.back()">Tiếp tục</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <form action="/user/addOrder" method="post">
+      
+       
+            
+     
+    <div class="container-fluid" style="width: 80%">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 17%; text-align: center;">Sản phẩm</th>
+                    <th style="width: 33%"></th>
+                    <th style="width: 21%; text-align: center;">Số lượng</th>
+                    <th style="width: 21%; text-align: center;">Giá</th>
+                    <th style="width: 8%"></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <% var sum=0  %>
+              <% for(var i=0;i<cart.products.length;i++) { %>
+                 
+                <tr>
+                    <th scope="row">
+                        <a class="thumbnail pull-left" href="#"> <img class="media-object" src="<%= (cart.products)[i].image1 %>" style="width: 80%"> </a>
+                    </th>
+                    <td>
+                        <h3><%= (cart.products)[i].name %></h3>
+                        <pre>Màu: <%= (cart.color)[i] %>         Size: <%= (cart.size)[i] %></pre>
+                    </td>
+                    <td style="text-align: center;">
+                        <div>
+                            <input type="button" value="-" class="decrease" />
+                            <input type="number" class="quantity" value="<%= (cart.number)[i] %>" name="quantity"  >
+                            
+                            <input type="button" value="+" class="increase" />
+                            
+                        </div>
+                    <td style="text-align: center;" class="productPrice"><%= (cart.products)[i].price *(100- (cart.products)[i].discount)*(new Number((cart.number)[i]))/100 %></td>
+                    <% sum+= (cart.products)[i].price *(100- (cart.products)[i].discount)*(new Number((cart.number)[i]))/100 %> %>
+                    <td>
+                        <a href="/user/deleteProductInCart/<%= i %>">
+                            <span class="badge badge-danger" style="width: 50%;">
+                                <i class="ti-trash" style="font-size: 20px;"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+              <% } %>
+                
+            <tr>
+                <td>   </td>
+                <td>   </td>
+                <td>   </td>
+                <td><h3>Tổng</h3></td>
+                <td class="text-right"><h3><strong id="sumMoney"><%= sum %></strong></h3></td>
+            </tr>
+            <tr>
+                <td>   </td>
+                <td>   </td>
+                <td>   </td>
+                <td>
+                    <a href="/">
+                        <button type="button" class="btn btn-secondary" style="color: white;">
+                            Tiếp tục mua sắm
+                        </button>
+                    </a>
+                </td>
+                <td>
+                <button type="button" class="btn btn-danger pay-btn">
+                    Thanh toán 
+                </button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="payment hide">
+        <div class="card">
+            <div class="payment-details">
+                <h3>Thanh toán</h3>
+                <p>Cung cấp các thông tin dưới đây để hoàn tất đơn hàng</p>
+            </div>
+           
+
+            <div class="input-text"> <input type="text" name="name" value="<%= user.name %>" class="checkout-info"> <span>Tên</span> </div>
+            <div class="input-text"> <input type="text" name="phonenumber" value="<%= user.phonenumber %>" class="checkout-info"> <span>Số điện thoại</span> </div>
+            <div class="input-text"> <textarea name="address" id="" cols="30" rows="4"><%=user.address%></textarea> <span>Địa chỉ</span> </div>
+            <div class="summary">
+                <div class="text-data">
+                    <p>Tổng tiền hàng</p>
+                    <p>Phí vận chuyển</p>
+                    <h4>Tổng</h4>
+                </div>
+                <div class="numerical-data">
+                    <p id="sumMoney2"><%= sum %></p>
+                    <p>15000</p>
+                    <h4 id="totalMoney"  ><%= sum+15000 %></h4>
+                    <input type="text" name="totalMoney" style="display: none;" id="itotal" value="<%= sum+15000 %>" >
+                </div>
+            </div>
+       
+            <div class="pay">
+                 <input type="submit" value="Đặt hàng">
+                 
+                 <div class="back-btn-1">
+                    Quay lại
+                </div>
+                 
+            </div>
+        </div>
+    </div>
+</form>
+
+<%- include('layouts/footer'); -%>
+    <script>
+        var decrease=document.querySelectorAll(".decrease");
+        var quantity=document.querySelectorAll(".quantity");
+        var increase=document.querySelectorAll(".increase");
+        var productPrice=document.querySelectorAll(".productPrice");
+        
+        increase.forEach(function(elem,i) {
+            elem.addEventListener("click", function() {
+                var money=Number(document.getElementById('sumMoney').innerHTML)
+                var x=productPrice[i].innerHTML/quantity[i].value;
+                quantity[i].value++;
+                productPrice[i].innerHTML=x*quantity[i].value;
+                money=money+Number(x);
+                document.getElementById('sumMoney').innerHTML=money
+                document.getElementById('sumMoney2').innerHTML=money
+                document.getElementById('totalMoney').innerHTML=money+15000
+                document.getElementById('itotal').value=money+15000
+            });
+        });
+
+        decrease.forEach(function(elem,i) {
+            elem.addEventListener("click", function() {
+                var money=Number(document.getElementById('sumMoney').innerHTML)
+                var x=productPrice[i].innerHTML/quantity[i].value;
+                if(quantity[i].value>1){
+                    quantity[i].value--;
+                    productPrice[i].innerHTML=x*quantity[i].value;
+                    money=money-Number(x);
+                document.getElementById('sumMoney').innerHTML=money
+                document.getElementById('sumMoney2').innerHTML=money
+                document.getElementById('totalMoney').innerHTML=money+15000
+                document.getElementById('itotal').value=money+15000
+                }
+            });
+        });
+    </script>
+    <script>
+
+    </script>
+    <script>
+        const modal = document.querySelector(".payment");
+        const openModalBtn = document.querySelector(".pay-btn");
+        const buttonCloseModal = document.querySelector(".back-btn-1");
+
+        function toggleModal() {
+            modal.classList.toggle("hide");
+        }
+
+        openModalBtn.addEventListener("click", toggleModal);
+        buttonCloseModal.addEventListener("click", toggleModal);
+
+        modal.addEventListener("click", (e) => {
+            if (e.target == e.currentTarget) toggleModal();
+        });
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

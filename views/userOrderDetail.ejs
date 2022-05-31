@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/order.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    <div class="container my-5">
+        <h2 class="mb-4" style="text-align: center; color: red;">Theo dõi đơn hàng</h2>
+        <div class="card">
+            <div class="card-body">
+                <h6><%= String((order.code)).padStart(5, '0') %></h6>
+                <article class="card">
+                    <div class="card-body row">
+                        <% var d=order.createAt %>
+                        <% d.setDate(d.getDate() + 7) %>
+                        <% var D=d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear() %>
+                        <div class="col"> <strong>Thời gian nhận hàng dự kiến:</strong> <br><%= D %> </div>
+                        <div class="col"> <strong>Đơn vị giao hàng:</strong> <br> Giao hàng nhanh</div>
+                        <div class="col"> <strong>Trạng thái:</strong> <br> <%= order.status %></div>
+                        <div class="col"> <strong>Giá:</strong> <br> <%= order.totalMoney %>đ </div>
+                    </div>
+                </article>
+                <div class="track">
+                    <% if(order.status !='Đã hủy') { %>
+                    <div class="step" id="step1"> <span class="icon"> <i class="ti-package"></i> </span> <span class="text">Đã xác nhận</span> </div>
+                    <div class="step" id="step2"> <span class="icon"> <i class="ti-hand-open"></i> </span> <span class="text">Shipper đã lấy hàng</span> </div>
+                    <div class="step" id="step3"> <span class="icon"> <i class="ti-truck"></i> </span> <span class="text"> Đang giao hàng </span> </div>
+                    <div class="step" id="step4"> <span class="icon"> <i class="ti-check"></i> </span> <span class="text">Thanh toán thành công</span> </div>
+                    
+                    <% } %> 
+                     <% if(order.status =='Đã hủy') { %>
+                        <div class="step active"> <span class="icon"> <i class="ti-close"></i> </span> <span class="text">Đã hủy</span> </div>
+                    <% } %>
+                    
+                </div>
+                <hr>
+                <ul class="row">
+                    <% var o=order.products %>
+                    <% for(var i=0; i< o.length ;i++) { %>
+                    <li class="col-md-4">
+                        <figure class="itemside mb-3">
+                            <div class="aside"><img src="<%= o[i].image1 %>" class="img-sm"></div>
+                            <div class="info align-self-center">
+                                <p class="title"><%= o[i].name %></p>
+                                <pre>Size: <%= (order.size)[i] %>      Số lượng: <%= (order.number)[i] %></pre>
+                                <span class="text-muted"><%= o[i].price*(100-o[i].discount)*(order.number)[i]/100 %> </span>
+                            </div>
+                        </figure>
+                    </li>
+                    <% } %>
+                </ul>
+                <hr> 
+                
+                <div class="row" style="text-align: center;">
+                    <!-- Button trigger modal -->
+                    
+                    <div class="col">
+                        <% if(order.status =="Chờ xác nhận" || order.status =="Chờ xác nhận") {%>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                            Huỷ đơn hàng
+                        </button>
+                        <% } %>
+                    </div>
+                    <div class="col">
+                        <a href="/user/order" class="btn btn-danger">Quay lại</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn hủy đơn hàng?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+          <a href="/user/order/cancel/<%= order._id %>" class="btn btn-danger">Xác nhận</a>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+        var s1=document.getElementById("step1")
+        var s2=document.getElementById("step2")
+        var s3=document.getElementById("step3")
+        var s4=document.getElementById("step4")
+      
+       
+        switch("<%= order.status %>"){
+            case "Thanh toán thành công": s4.className="step active";
+            case "Đang giao hàng": s3.className="step active";
+            case "Shipper đã lấy hàng": s2.className="step active";
+            case "Đã xác nhận": s1.className="step active";
+        }
+    </script>
+
+    <%- include('layouts/footer'); -%>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

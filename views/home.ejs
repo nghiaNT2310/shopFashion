@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    <div class="slider">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100 slider-item" src="/assets/img/slider1.jpg" alt="First slide">
+              </div>
+              <div class="carousel-item slider-item">
+                <img class="d-block w-100" src="/assets/img/slider2.jpg" alt="Second slide">
+              </div>
+              <div class="carousel-item slider-item">
+                <img class="d-block w-100" src="/assets/img/slider3.jpg" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="content my-5 mx-4">
+        <h2 class="main-title">
+            <a href="">
+                Sản phẩm nổi bật
+            </a>
+        </h2>
+        <div>
+            <div class="row">
+                <div class="col">
+                    <% var i %>
+                    <% for(i=0;i<=products.length/3 && i<2 ;i++ ) { %>
+                    <div class="row">
+                        <% var j %>
+                        <% for(j=3*i;j<3*i+3 && j<products.length;j++) {%>
+                        <div class="col position-relative">
+                            <a href="/productDetail/<%=products[j]._id%>" style="text-decoration: none; color: black;">
+                                <img src="<%= products[j].image1 %>" alt="Thời trang Bách Khoa" class="product1">
+                           
+                            <% if(products[j].discount !=0) { %>
+                             <div class="discount">-<%= products[j].discount %>%</div>
+                             <% } %>
+                            <div class="product-detail my-2 px-2">
+                                <span class="d-inline-block text-truncate product-name" style="max-width: 150px;">
+                                    
+                                        <%= products[j].name %>
+                                    
+                                </span>
+                                <p>
+                                    <span><%= products[j].price * (100-products[j].discount)/100 %>đ</span>
+                                    <span>
+                                        <del style="opacity: 0.5;"><%= products[j].price %>đ</del>
+                                    </span>
+                                </p>
+                            </div>
+                            </a>
+                        </div>  
+                        <% } %>
+                        <% while(j % 3!=0) {%>
+                            <div class="col"></div>
+                        <% j++ %>
+                        <% } %>
+                    </div>  
+                    <% } %>
+                    <% if(i<1) { %>
+
+                     <% } %>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <img src="/assets/img/product1.jpg" alt="Thời trang Bách Khoa" style="width: 100%;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content my-5 mx-4">
+        <h2 class="main-title">
+            <a href="">
+                Khuyến mãi
+            </a>
+        </h2>
+        <% var i %>
+        <% for(i=0;i<=products.length/4 && i<3 ;i++ ) { %>
+        <div class="row">
+            <% var count=0 %>
+             <% for(var j=4*i;j<4*i+4 && j<products.length;j++) { %>
+                <% if(products[j].discount != 0) {%>
+                 <% count++ %>
+            <div class="col my-4">
+                <div class="row">
+                    <div class="col-5">
+                      <a href="/productDetail/<%=products[j]._id%>">
+                          <img src="<%= products[j].image1 %>" alt="Thời trang Bách Khoa" class="product2">
+                      </a>
+                      <div class="discount">-<%= products[j].discount %>%</div>
+                    </div>
+                    <div class="col-7">
+                        <a href="/productDetail/<%=products[j]._id%>" style="text-decoration: none; color: black;">
+                        <p style="cursor: pointer;"><%= products[j].name %></p>
+                        <p style="font-size: 14px;">
+                            <span style="font-weight: 600;"><%= products[j].price * (100-products[j].discount)/100 %>đ</span>
+                            <span>
+                                <del style="opacity: 0.5;"><%= products[j].price %>đ</del>
+                            </span>
+                        </p>
+                        </a>
+                    </div>
+                
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+            
+            <% while(count % 4!=0) {%>
+                <div class="col my-4"></div>
+            <% count++ %>
+            <% } %>
+        </div>
+        <% } %> 
+    </div>
+    <div class="content my-5" style="background-color: rgba(199, 196, 193, 0.1);">
+        <div class="row">
+            <div class="col text-center">
+                <div class="my-4">
+                    <i class="ti-thumb-up" style="font-size: 48px;"></i>
+                </div>
+                <p style="font-weight: 700;">Sản phẩm chính hiệu</p>
+                <p>Chất lượng thật - Giá trị thật</p>
+                <a href="/termOfService">
+                    Xem chi tiết
+                    <span><i class="ti-angle-right"></i></span>
+                </a>
+            </div>
+            <div class="vl"></div>
+            <div class="col text-center">
+                <div class="my-4">
+                    <i class="ti-credit-card" style="font-size: 48px;"></i>
+                </div>
+                <p style="font-weight: 700;">14 ngày đổi trả miễn phí</p>
+                <p>Hoàn tiền nhanh chóng</p>
+                <a href="/returnPolicy">
+                    Xem chi tiết
+                    <span><i class="ti-angle-right"></i></span>
+                </a>
+            </div>
+            <div class="vl"></div>
+            <div class="col text-center">
+                <div class="my-4">
+                    <i class="ti-timer" style="font-size: 48px;"></i>
+                </div>
+                <p style="font-weight: 700;">Giao hàng nhanh chóng</p>
+                <p>Freeship với đơn hàng trên 3 triệu</p>
+                <a href="/privacyPolicy">
+                    Xem chi tiết
+                    <span><i class="ti-angle-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <%- include('layouts/footer'); -%>
+    <%- include('layouts/scripts'); -%>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    <div class="content mx-4">
+        <% if(all) {%>
+        <h2 class="main-title">Tất cả sản phẩm</h2>
+        <% } %>
+        <% if(shirt) {%>
+            <h2 class="main-title">Áo</h2>
+        <% } %>
+        <% if(pants) {%>
+            <h2 class="main-title">Quần</h2>
+        <% } %>
+        <% if(set) {%>
+            <h2 class="main-title">Bộ</h2>
+        <% } %>
+        <% if(discount) {%>
+            <h2 class="main-title">Khuyến mãi</h2>
+        <% } %>
+           
+        <% for(var i=0;i<products.length/4 ;i++ ) { %>
+            <div class="row my-4">
+                <% var j %>
+                <% for(j=4*i;j<4*i+4 && j<products.length;j++) {%>
+                <div class="col">
+                    <a href="/productDetail/<%=products[j]._id%>">
+                        <img src="<%= products[j].image1 %>" alt="Thời trang Bách Khoa" class="product3">
+                    <% if(products[j].discount != 0) {%>
+                    <div class="discount">-<%= products[j].discount %>%</div>
+                    <% } %>
+                    <% if(products[j].quantityDM + products[j].quantityDL + products[j].quantityDXL +
+                    products[j].quantityTM +products[j].quantityTL +products[j].quantityTXL ==0) {%>
+                    <div class="out-stoke">Hết hàng</div>
+                    <% } %>
+                    </a>
+                    <a href="/productDetail/<%=products[j]._id%>">
+                        <div class="product-detail my-2 px-2" style="color: black;">
+                            <span class="d-inline-block text-truncate product-name" style="max-width: 150px;">
+                                   <%= products[j].name %>
+                            </span>
+                            <p>
+                                <span><%= products[j].price*(100-products[j].discount)/100 %></span>
+                                <span>
+                                    <del style="opacity: 0.5;"><%=products[j].price%></del>
+                                </span>
+                            </p>
+                        </div>
+                    </a>                    
+                </div>
+                <% } %>
+                <% while(j % 4!=0) {%>
+                    <div class="col"></div>
+                <% j++ %>
+                <% } %>
+            </div>
+        <% } %>
+
+        
+
+    </div>
+    <%- include('layouts/footer'); -%>
+    <%- include('layouts/scripts'); -%>
+</body>
+</html>

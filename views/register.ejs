@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container" style="margin-top: 30px;">
+      <h1>Đăng ký</h1>
+      <form method="POST" action="/register">
+        <div class="form-control">
+          <input type="text" id="username" placeholder="Tên đăng nhập" name="username" value="<%= existedUser.username %>" required/>
+          <span></span>
+          <small></small>
+        </div>
+        <div class="form-control">
+          <input type="password" id="password" placeholder="Mật khẩu" name="password" value="<%= existedUser.password %>" required/>
+          <span></span>
+          <small></small>
+        </div>
+        <div class="form-control">
+          <input type="text" id="name" name="name" placeholder="Họ và tên"  value="<%= existedUser.name %>" required>
+          <span></span>
+          <small></small>
+      </div>
+        <div class="form-control">
+            <input type="tel" id="phonenumber" name="phonenumber" placeholder="Số điện thoại (VD: 0123456789)" pattern="[0-9]{10}" value="<%= existedUser.phonenumber %>" required>
+            <span></span>
+            <small></small>
+        </div>
+        <div class="form-control">
+            <input type="text" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" id="birthday" placeholder="Ngày sinh" name="birthday" value="<%= existedUser.birthday %>" required/>
+            <span></span>
+            <small></small>
+        </div>
+        <div class="form-control">
+          <input type="text" id="address" name="address" placeholder="Địa chỉ"  value="<%= existedUser.address %>" required>
+          <span></span>
+          <small></small>
+      </div>
+      <% if (existedUser) { %>
+        <p style="color: red;">Tên đăng nhập đã tồn tại</p>
+      <% } %>
+        <input type="submit" value="Đăng ký" />
+        <br><br>
+      </form>
+    </div>
+
+    <% if (newUser) { %>
+    <div class="modal">
+      <div class="modal__inner">
+        <div class="modal__header">
+            <p>Cửa hàng thời trang bách khoa</p>
+        </div>
+        <div class="modal__body">
+            <h3>Đăng ký thành công!!</h3>
+        </div>
+        <div class="modal__footer">
+          <a href="/">
+            <button>Về trang chủ</button>
+          </a>
+          <a href="/login">
+            <button>Đăng nhập</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+  </body>
+</html>

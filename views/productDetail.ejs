@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/announce.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    
+    <% if(notice) {%>
+        <div class="my-modal">
+            <div class="modal__inner sticky-top">
+                <div class="modal__header">
+                    <h5>Shop</h5>
+                </div>
+                <div class="modal__body">
+                    <h4><%= notice %></h4>
+                </div>
+                <div class="modal__footer">
+                    <button onclick="history.back()">Tiếp tục</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <div class="product-detail mx-4">
+    
+        <div class="row">
+            <div class="col-4">
+                <div id="product-main-slider">
+                    <!-- <img src="/assets/img/product2.jpg" alt="Thời trang bách khoa" class="product-main-image"> -->
+                    <img src="<%=detailProduct.image1%>" alt="Thời trang bách khoa" class="product-main-image">
+                    <img src="<%=detailProduct.image2%>" alt="Thời trang bách khoa" class="product-main-image product-hide">
+                    <img src="<%=detailProduct.image3%>" alt="Thời trang bách khoa" class="product-main-image product-hide">
+                    <img src="<%=detailProduct.image4%>" alt="Thời trang bách khoa" class="product-main-image product-hide">
+                    <div id="product-left">
+                        <i class="ti-angle-left"></i>
+                    </div>
+                    <div id="product-right">
+                        <i class="ti-angle-right"></i>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <img src="<%=detailProduct.image1%>" alt="Thời trang bách khoa" class="product-sub-image">
+                    </div>
+                    <div class="col">
+                        <img src="<%=detailProduct.image2%>" alt="Thời trang bách khoa" class="product-sub-image">
+                    </div>
+                    <div class="col">
+                        <img src="<%=detailProduct.image3%>" alt="Thời trang bách khoa" class="product-sub-image">
+                    </div>
+                    <div class="col">
+                        <img src="<%=detailProduct.image4%>" alt="Thời trang bách khoa" class="product-sub-image">
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="product-title my-4">
+                    <h3><%=detailProduct.name %></h3>
+                    <p><%=detailProduct.code %></p>
+                    <div class="product-price">
+                        <span class="product-discount">-<%=detailProduct.discount %>%</span>
+                        <del><%=detailProduct.price%>đ</del>
+                        <span class="current-price"><%=detailProduct.price*(100-detailProduct.discount)/100 %>đ</span>
+                    </div>
+                    <form action="/user/addCart/<%= detailProduct._id %>" method="post">
+                    <div class="row my-4">
+                        <div class="col-3">
+                            Màu sắc:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" checked="checked" name="color" id="inlineRadio1" value="Đen">
+                                <label class="form-check-label" for="inlineRadio1">Đen</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="color" id="inlineRadio2" value="Trắng">
+                                <label class="form-check-label" for="inlineRadio2">Trắng</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            Kích thước:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" checked="checked" name="size" id="inlineRadio3" value="M">
+                                <label class="form-check-label" for="inlineRadio3">M</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="size" id="inlineRadio4" value="L">
+                                <label class="form-check-label" for="inlineRadio4">L</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="size" id="inlineRadio5" value="XL">
+                                <label class="form-check-label" for="inlineRadio5">XL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider my-0"></div>
+                    <div class="row my-4" display>
+                        <div class="col-8">
+                            <button type="submit" class="add-to-cart">THÊM VÀO GIỎ</button>
+                        </div>
+                        <div class="col-4">
+                            <div class="back-btn" onclick="history.back()">Quay lại</div>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="dropdown-divider my-0"></div>
+                    <div class="my-4">
+                        <div class="row mb-2">
+                            <div class="col-1">
+                                <i class="ti-check" style="font-size: 24px; opacity: 0.5;"></i>
+                            </div>
+                            <div class="col-11">
+                                Cam kết 100% chính hãng
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="ti-truck" style="font-size: 24px; opacity: 0.5;"></i>
+                            </div>
+                            <div class="col-11">
+                                <p>
+                                    Giao hàng dự kiến:
+                                    <br>
+                                    <strong>Thứ 2 - Thứ 6 từ 9h00 - 17h00</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="ti-help-alt" style="font-size: 24px; opacity: 0.5;"></i>
+                            </div>
+                            <div class="col-11">
+                                <p>
+                                    Hỗ trợ 24/7
+                                    <br>
+                                    Với các kênh chat, email & phone
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var addCart=document.querySelector(".add-to-cart");
+        var cnt=document.querySelector(".shop-counter");
+        addCart.addEventListener('click', function(){
+            cnt.innerHTML++;
+            this.form.submit();
+        })
+    </script>
+    <%- include('layouts/footer'); -%>
+    <%- include('layouts/scripts'); -%>
+</body>
+</html>

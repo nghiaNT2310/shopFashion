@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cửa hàng thời trang Bách Khoa</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <%- include('layouts/navbarAdmin'); -%>
+
+    <div class="container-fluid my-4" style="width: 70%">
+        <h2 class="my-4" style="color: red;">Chi tiết đơn hàng</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 24%; text-align: center;">Sản phẩm</th>
+                    <th style="width: 39%"></th>
+                    <th style="width: 16%; text-align: center;">Số lượng</th>
+                    <th style="width: 21%; text-align: center;">Giá</th> 
+                </tr>
+            </thead>
+            <tbody>
+                
+                 <% for(var i=0;i<(order.products).length ; i++) { %>
+                <tr>
+                    <th scope="row" style="text-align: center;">
+                        <a class="thumbnail pull-left" href="#"> <img class="media-object" src="<%= (order.products)[i].image1 %>" style="width: 40%"> </a>
+                    </th>
+                    <td>
+                        <h4><%= (order.products)[i].name %></h4>
+                        <pre>Màu:  <%= (order.color)[i] %>        Size: <%= (order.size)[i] %> </pre>
+                    </td>
+                    <td style="text-align: center;">
+                        <div>
+                            <%= (order.number)[i] %>
+                        </div>
+                        <% var pro=(order.products)[i] %>
+                    <td style="text-align: center;" class="productPrice"><%= (order.number)[i]*pro.price*(100-pro.discount)/100 %></td>    
+                </tr>
+              <% } %>
+            </tbody>
+        </table>
+        <form action="/admin/order/update/<%= order._id %>">
+        <div class="row">
+            <div class="col-3">
+                <div class="label mt-5">
+                    Mã đơn hàng
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="label" style="margin: 60px 0;">
+                    Tên người nhận
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="label" style="margin: 60px 0;">
+                    Số điện thoại
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="label" style="margin: 60px 0;">
+                    Địa chỉ nhận
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="label" style="margin: 60px 0;">
+                    Trạng thái
+                    <span></span>
+                    <small></small>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="form-control">
+                    <input type="text" class="disabled-infor" disabled value="<%= String((order.code)).padStart(5, '0') %>">
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="text" class="disabled-infor" disabled value="<%= order.name %>">
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="text" class="disabled-infor" disabled value="<%= order.phoneNumber %>">
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="text" class="disabled-infor" disabled value="<%= order.address %>">
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control" id="ttks">
+                    <input type="text" class="disabled-infor"  disabled value="<%= order.status %>">
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control" id="tts" style="display: none;" >
+                    <select name="status"   class="infor"  disabled>
+                        <option class="status" value="Đã xác nhận" >Đã xác nhận</option>
+                        <option class="status" value="Shipper đã lấy hàng" >Shipper đã lấy hàng</option>
+                        <option class="status" value="Đang giao hàng" >Đang giao hàng</option>
+                        <option class="status" value="Thanh toán thành công" >Thanh toán thành công</option>
+                        <option class="status" value="Đã hủy" >Đã hủy</option>
+                    </select>
+                </div>
+                
+            </div>  
+        </div>
+        <div class="row" id="page1">
+            <div class="col">
+                <div class="container-fluid" id="update" style="width: 68%">
+                    <input type="button" value="Sửa thông tin">
+                </div>
+                <div class="container-fluid hide" id="save" style="width: 68%">
+                    <input type="submit" value="Lưu thông tin">
+                </div>
+            </div>
+            <div class="col">
+                <div class="container-fluid" style="width: 68%">
+                    <input type="button" value="Quay lại" onclick="history.back()">
+                </div>
+            </div>  
+        </div>
+        </form>
+    </div>
+
+    <%- include('layouts/footer'); -%>
+    
+    <script>
+        const updateBtn = document.querySelector('#update');
+        const saveBtn = document.querySelector('#save');
+        const inputks = document.querySelector('#ttks');
+        const inputs = document.querySelector('#tts');
+        const infor = document.querySelectorAll('.infor');
+    
+        updateBtn.addEventListener('click', function() {
+            updateBtn.classList.add('hide');
+            saveBtn.classList.remove('hide');
+            inputks.style.display="none"
+            inputs.style.display="block"
+            inputs.classList.remove('hide')
+            for(var i = 0; i < 5; i++) {
+                infor[i].removeAttribute("disabled");
+            }
+        })
+    
+        backBtn.addEventListener('click', function() {
+            updateBtn.classList.remove('hide');
+            saveBtn.classList.add('hide');
+            for(var i = 0; i < 5; i++) {
+                infor[i].disabled = true;
+            }
+        })
+
+       
+    
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

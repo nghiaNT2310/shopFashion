@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+			integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+	>
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    <div class="container-fluid my-4" style="width: 80%">
+        <h2 class="my-4">Thông tin khách hàng</h2>
+        <form action="/user/profile" method="POST" enctype="multipart/form-data"> 
+          <div class="row">
+              <div class="col-8">
+                  <div class="row">
+                      <div class="col-4">
+                          <div class="mt-5">Tên khách hàng</div>
+                          <div class="product-label">Tên đăng nhập</div>
+                          <div class="product-label">Số điện thoại</div>
+                          <div class="product-label">Ngày sinh</div>
+                          <div class="product-label">Địa chỉ</div>
+                      </div>
+                      <div class="col-8">
+                          <div class="form-control">
+                              <input type="text" id="name" name="name" class="infor" value="<%= user.name %>" required disabled>
+                              <span></span>
+                              <small></small>
+                          </div>
+                          <div class="form-control">
+                              <input type="text" id="id" name="username" class="disabled-infor" value="<%= user.username %>" required disabled>
+                              <span></span>
+                              <small></small>
+                          </div>
+                          <div class="form-control">
+                            <input type="number" id="id" name="phonenumber" class="infor" value="<%= user.phonenumber %>" required disabled>
+                            <span></span>
+                            <small></small>
+                        </div>
+                          <div class="form-control">
+                              <% var a= user.birthday %>
+                              <input type="date" name="birthday" class="infor" required value="<%= a.getFullYear() + '-' + String((a.getMonth() + 1)).padStart(2, '0')+ '-' + String(a.getDate()).padStart(2, '0') %>" disabled>
+                              <span></span>
+                              <small></small>
+                          </div>
+                          <div class="form-control">
+                              <input type="text" name="address" class="infor" required value="<%= user.address %>" disabled>
+                              <span></span>
+                              <small></small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-4 mt-5">
+                  <div class="row img-upload">
+                      <label for="input-img" class="preview">
+                          <img id="img" src="<%= user.image %>" alt="">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Avatar</span>
+                    </label>
+                    <input type="file" class="infor" name="image" disabled hidden id="input-img" />
+                  </div>
+              </div>
+          </div>
+          <div class="row" style="text-align: center;">
+              <div class="col">
+                  <input type="button" value="Quay lại" onclick="history.back()" style="width: 60%;">
+              </div>
+              <div class="col">
+                  <input type="button" value="Cập nhật thông tin" id="update" style="width: 60%;">
+                  <input type="submit" value="Lưu thông tin" class="hide" id="save" style="width: 60%;">
+              </div>
+          </div>
+        </form>
+    </div>
+
+    <%- include('layouts/footer'); -%>
+  
+    <script>
+        const updateBtn = document.querySelector('#update');
+        const saveBtn = document.querySelector('#save');
+        const infor = document.querySelectorAll('.infor');
+    
+        updateBtn.addEventListener('click', function() {
+            updateBtn.classList.add('hide');
+            saveBtn.classList.remove('hide');
+            for(var i = 0; i < 6; i++) {
+                infor[i].removeAttribute("disabled");
+            }
+        })
+    </script>
+    
+  
+    <script>
+        const inputImg = document.querySelector('#input-img')
+
+        inputImg.addEventListener('change', (e) => {
+            let file = e.target.files[0]
+
+            if (!file) return
+
+            let img = document.getElementById('img')
+            img.src = URL.createObjectURL(file)
+
+            
+        })
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng thời trang Bách Khoa</title>
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/font/themify-icons/themify-icons.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+            integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    >
+</head>
+<body>
+    <%- include('layouts/navbarAdmin'); -%>
+    <div class="container-fluid my-4" style="width: 80%">
+      <h2 class="my-4">Chi tiết sản phẩm</h2>
+      <form action="/admin/product/update/<%= product._id %>" method="POST" enctype="multipart/form-data"> 
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mt-5">Tên sản phẩm</div>
+                        <div class="product-label">Mã sản phẩm</div>
+                        <div class="product-label">Thể loại</div>
+                        <div class="product-label">Số lượng đen - M</div>
+                        <div class="product-label">Số lượng đen - L</div>
+                        <div class="product-label">Số lượng đen - XL</div>
+                        <div class="product-label">Số lượng Trắng - M</div>
+                        <div class="product-label">Số lượng Trắng - L</div>
+                        <div class="product-label">Số lượng Trắng - XL</div>
+                        <div class="product-label">Giá</div>
+                        <div class="product-label">Khuyến mãi</div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-control">
+                            <input type="text" id="name" name="name"   class="infor" disabled value="<%= product.name %>" required/>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="text" id="id" name="code"  class="infor" disabled value="<%= product.code %>" required/>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <select name="type" id="type"  class="infor" disabled>
+                                <%if(product.type =='pants') {%>
+                                <option id="pants" value="pants" selected>Quần</option>
+                                <% } if(product.type !='pants') {%> <option id="pants" value="pants">Quần</option> <% } %>
+                                <%if(product.type =='shirt') { %>
+                                <option id="shirt" value="shirt" selected>Áo</option>
+                                <%} if(product.type !='shirt') {%> <option id="shirt" value="shirt">Áo</option> <% } %>
+                                <%if(product.type =='set') { %>
+                                <option id="set" value="set" selected>Bộ</option>
+                                <%} if(product.type !='set') { %> <option id="set" value="set">Bộ</option> <% } %>
+                            </select>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityDM" class="infor" disabled value="<%= product.quantityDM %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityDL" class="infor" disabled value="<%= product.quantityDL %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityDXL" class="infor" disabled value="<%= product.quantityDXL %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityTM" class="infor" disabled value="<%= product.quantityTM %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityTL"  class="infor" disabled value="<%= product.quantityTL %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="quantityTXL" class="infor" disabled value="<%= product.quantityTXL %>" min="0" max="10000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="price" class="infor" disabled value="<%= product.price %>" min="1000" max="10000000" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                        <div class="form-control">
+                            <input type="number" name="discount" class="infor" disabled value="<%= product.discount %>" min="0" max="100" required>
+                            <span></span>
+                            <small></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mt-5">
+                <div class="row img-upload">
+                    <label for="input-img1" class="preview" id="preview1">
+                        <img id="img1" src="<%= product.image1 %>" alt="anh bi loi">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Tải lên ảnh 1</span>
+                    </label>
+                    <input type="file" name="img1"  class="infor" disabled hidden id="input-img1"/>
+                </div>
+                <div class="row img-upload">
+                    <label for="input-img2" class="preview" id="preview2">
+                        <img id="img2" src="<%= product.image2 %>" alt="anh bi loi">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Tải lên ảnh 2</span>
+                    </label>
+                    <input type="file" class="infor" disabled name="img2" hidden id="input-img2" />
+                </div>
+                <div class="row img-upload">
+                    <label for="input-img3"  class="preview" id="preview3">
+                        <img id="img3" src="<%= product.image3 %>" alt="anh bi loi">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Tải lên ảnh 3</span>
+                    </label> 
+                    <input type="file" name="img3" class="infor" disabled hidden id="input-img3" />
+                </div>
+                <div class="row img-upload">
+                    <label for="input-img4" class="preview" id="preview4">
+                        <img id="img4" src="<%= product.image4 %>" alt="anh bi loi">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Tải lên ảnh 4</span>
+                    </label>
+                    <input type="file" name="img4"  class="infor" disabled hidden id="input-img4" />
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" style="text-align: center;">
+            <div class="col">
+                <input type="button" value="Quay lại" onclick="history.back()" style="width: 60%;">
+            </div>
+            <div class="col">
+                <input type="submit" value="Cập nhật sản phẩm" style="width: 60%;">
+            </div>
+        </div> -->
+        
+        <!-- start -->
+        <div class="row mb-2" id="page1">
+            <div class="col-4">
+                <a href="/admin/product" style="text-decoration: none;">
+                    <input type="button" value="Quay lại" id="back" style="width: 60%">
+                </a>
+            </div>
+            <div class="col-4">
+                <!-- <div class="container-fluid btn-option" id="update" style="width: 60%">Sửa thông tin</div> -->
+                <input type="button" value="Sửa thông tin" id="update" style="width: 60%">
+            </div>
+            <div class="col-4">
+                <!-- Button trigger modal -->
+                <input type="button" value="Xoá sản phẩm" data-toggle="modal" data-target="#exampleModal" style="width: 60%">
+            </div>
+        </div>
+
+        <div class="container-fluid hide mb-2" id="save" style="width: 40%; text-align: center;">
+            <input type="submit" class="btn btn-primary" value="Lưu thông tin" style="width: 80%;"></input>
+        </div>
+        <!-- end -->
+
+      </form>
+    </div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">shop</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Bạn có chắc chắn muốn xóa ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+          <a class="btn btn-primary" href="/admin/product/delete/<%= product._id %>" style="text-decoration: none;">
+            Xóa
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+   
+
+    <%- include('layouts/footer'); -%>
+    <script>
+        const updateBtn = document.querySelector('#update');
+        const deleteBtn = document.querySelector('#delete');
+        const saveBtn = document.querySelector('#save');
+        const backBtn = document.querySelector('#back');
+        const infor = document.querySelectorAll('.infor');
+        const page1 = document.querySelector('#page1');
+
+        updateBtn.addEventListener('click', function() {
+            page1.classList.add('hide');
+            // updateBtn.classList.add('hide');
+            // deleteBtn.classList.add('hide');
+            saveBtn.classList.remove('hide');
+            backBtn.classList.remove('hide');
+            for(var i = 0; i < 15; i++) {
+                infor[i].removeAttribute("disabled");
+            }
+        })
+    
+        backBtn.addEventListener('click', function() {
+            updateBtn.classList.remove('hide');
+            deleteBtn.classList.remove('hide');
+            saveBtn.classList.add('hide');
+            backBtn.classList.add('hide');
+            for(var i = 0; i < 15; i++) {
+                infor[i].disabled = true;
+            }
+        })
+    </script>
+    <script>
+        const inputImg1 = document.querySelector('#input-img1')
+
+        inputImg1.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+
+            if (!file) return;
+
+            let img=document.getElementById("img1")
+            img.src=URL.createObjectURL(file)
+            
+        })
+
+        const inputImg2 = document.querySelector('#input-img2')
+
+        inputImg2.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+
+            if (!file) return;
+
+            let img=document.getElementById("img2")
+            img.src=URL.createObjectURL(file)
+        })
+
+        const inputImg3 = document.querySelector('#input-img3')
+
+        inputImg3.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+
+            if (!file) return;
+
+            let img=document.getElementById("img3")
+            img.src=URL.createObjectURL(file)
+        })
+
+        const inputImg4 = document.querySelector('#input-img4')
+
+        inputImg4.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+
+            if (!file) return;
+            let img=document.getElementById("img4")
+            img.src=URL.createObjectURL(file)
+        })
+        
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
